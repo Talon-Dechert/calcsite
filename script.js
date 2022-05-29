@@ -1,4 +1,9 @@
 function Calculator(){
+    //!Query selectors and event listeners here
+    const display = document.querySelector('.disp');
+
+
+
     //* Basic calc funcctions here
     const add = (x, y) => (x + y);
 
