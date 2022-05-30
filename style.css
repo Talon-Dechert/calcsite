@@ -40,6 +40,7 @@ button:active {
     color: rgba(0, 0, 0, 0.671);
     border: 1px solid rgb(0, 0, 0);
     background-color: rgba(14, 139, 98, 0.171);
+    height: 3.5rem;
 }
 
 .clear {
