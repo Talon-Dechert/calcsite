@@ -1,7 +1,7 @@
 function Calculator(){
-    //!Query selectors and event listeners here
+    //*Query selectors here
     const display = document.querySelector('.disp');
-
+    const keys = document.querySelectorAll('.key');
 
 
     //* Basic calc funcctions here
@@ -17,7 +17,7 @@ function Calculator(){
         return operator(num1, num2);
     };
 
-
+    
 
 
 
