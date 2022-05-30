@@ -4,7 +4,7 @@ function Calculator(){
     const keys = document.querySelectorAll('.key');
 
 
-    //* Basic calc funcctions here
+    //* Basic calc functions here
     const add = (x, y) => (x + y);
 
     const subtract = (x, y) => (x - y);
