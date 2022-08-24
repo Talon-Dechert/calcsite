@@ -24,10 +24,14 @@ function calculator(){
 
     const divide = (x, y) => (x / y);
 
-    //! Need to add funcitonality to replace storedValues
     const operate = (num1, operator, num2) => {
-        evaluated = operator(num1, num2);
+        return operator(num1, num2);
     };
+
+    const updateValues = (array) => {
+        evaluated = operate(array.shift(), array.shift(), array.shift());
+        return array.unshift(evaluated);
+    }
 
 
     //* Display functions
