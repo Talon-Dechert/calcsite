@@ -13,6 +13,8 @@ function calculator(){
 
     let storedValues = [];
 
+    let evaluated;
+
     //* Basic calc functions here
     const add = (x, y) => (x + y);
 
@@ -24,11 +26,26 @@ function calculator(){
 
     //! Need to add funcitonality to replace storedValues
     const operate = (num1, operator, num2) => {
-        return operator(num1, num2);
+        evaluated = operator(num1, num2);
     };
 
 
     //* Display functions
+
+    function displaySymbol(keyId){
+        switch (keyId) {
+            case 'add':
+                return "+";
+            case 'subtract':
+                return "-";
+            case 'multiply':
+                return "x";
+            case 'divide':
+                return "/";
+            default:
+                return keyId;
+        }
+    }
 
     function keyPress(e){
 
@@ -39,10 +56,10 @@ function calculator(){
 
         //! Need to figure out alternative response
         if (dispValue.length < 14){
-            dispValue += chosenKeyId;
+            dispValue += displaySymbol(chosenKeyId);
             
             switch (chosenKeyClass) {
-            case 'num':
+                case 'num':
                 tempValues += chosenKeyId;
                 break;
                 
@@ -55,11 +72,11 @@ function calculator(){
                 storedValues.push(chosenKeyId)
                 tempValues = "";
                 break;
-                    }
-                }
+            }
+        }
 
 
-            //!Final operation should only display once storedValues has only one item and execute only if storedValues has three or more items
+        //!Final operation should only display once storedValues has only one item and execute only if storedValues has three or more items
 
 
         //* Display as a string
