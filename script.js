@@ -9,7 +9,7 @@ function calculator(){
     let chosenKeyId;
     let chosenKeyClass;
     let dispValue = "";
-    let tempValues = "";
+    let tempValues = "0";
     let storedValues = [];
     let evaluated;
     let num1;
@@ -30,20 +30,19 @@ function calculator(){
         num2 = parseFloat(stNum2);
         switch (operator){
             case "add":
-                return add(num1, num2);
+                return `${add(num1, num2)}`;
             case "subtract":
-                return subtract(num1, num2);
+                return `${subtract(num1, num2)}`;
             case "multiply":
-                return multiply(num1, num2);
+                return `${multiply(num1, num2)}`;
             case "divide":
-                return divide(num1, num2);
+                return `${divide(num1, num2)}`;
         }
     };
 
     const updateValues = (array) => {
         evaluated = operate(array.shift(), array.shift(), array.shift());
         array.unshift(evaluated);
-        return array;
     }
 
 
@@ -74,37 +73,38 @@ function calculator(){
         switch (chosenKeyId) {
             case 'equals':
                 storedValues.push(tempValues);
-                for (let i = 0; storedValues.length > 1; i++) {
+                for (let i = storedValues.length; i > 1;) {
                     updateValues(storedValues);
+                    if (storedValues.length == 1) break;
                 }
                 dispValue = storedValues[0];
+                tempValues = dispValue;
+                storedValues.shift();
                 break;
             default:
                 
-                //! Need to figure out alternative response
-                if (dispValue.length < 14){
-                    dispValue += displaySymbol(chosenKeyId);
+            //! Need to figure out alternative response
+            if (dispValue.length < 14){
+                dispValue += displaySymbol(chosenKeyId);
                     
-                    switch (chosenKeyClass) {
-                        case 'num':
-                            tempValues += chosenKeyId;
-                            break;
+                switch (chosenKeyClass) {
+                    case 'num':
+                    tempValues += chosenKeyId;
+                    break;
                             
-                            case 'num zero':
-                                tempValues += chosenKeyId;
-                                break;
+                    case 'num zero':
+                    tempValues += chosenKeyId;
+                    break;
                                 
-                                case 'op':
-                                    storedValues.push(tempValues);
-                                    storedValues.push(chosenKeyId)
-                                    tempValues = "";
-                                    break;
-                                }
-                            }
-                        }
+                    case 'op':
+                    storedValues.push(tempValues);
+                    storedValues.push(chosenKeyId)
+                    tempValues = "";
+                    break;
+                    }
+                }
+            }
 
-
-        //!Final operation should only display once storedValues has only one item and execute only if storedValues has three or more items
 
 
         //* Display as a string
