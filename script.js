@@ -34,6 +34,8 @@ function calculator(){
         chosenKeyId = e.currentTarget.getAttribute('id');
         chosenKeyClass = e.currentTarget.getAttribute('class');
 
+        // console.log(chosenKeyClass);
+
         //! Need to figure out alternative response
         if (dispValue.length < 15){
             dispValue += chosenKeyId;
@@ -42,11 +44,13 @@ function calculator(){
         switch (chosenKeyClass) {
             case 'num':
                 tempValues += chosenKeyId;
+                break;
             
             case 'op':
                 storedValues.push(tempValues);
+                storedValues.push(chosenKeyId)
                 tempValues = "";
-                tempValues += chosenKeyId;
+                break;
         }
 
 
@@ -54,6 +58,9 @@ function calculator(){
         //* Display as a string
 
         display.textContent = `${dispValue}`;
+
+        // console.log("Temp value is: " + tempValues);
+        // console.log("Stored values: " + storedValues);
 
     }
 
