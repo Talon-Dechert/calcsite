@@ -4,7 +4,8 @@ function calculator(){
     const nums = document.querySelectorAll('.num');
     const operators = document.querySelectorAll('.op');
 
-    let numPress;
+    let chosenKeyId;
+    let chosenKeyClass;
 
 
     //* Basic calc functions here
@@ -16,23 +17,42 @@ function calculator(){
 
     const divide = (x, y) => (x / y);
 
-    const operate = (operator, num1, num2) => {
+    const operate = (num1, operator, num2) => {
         return operator(num1, num2);
     };
 
 
     //* Display functions
-    let dispValue = [];
+    let dispValue = "";
+
+    let tempValues = "";
+
+    let storedValues = [];
 
     function keyPress(e){
 
-        //! Need to add evaluators for type of keyPress
-        numPress = e.currentTarget.getAttribute('id');
+        chosenKeyId = e.currentTarget.getAttribute('id');
+        chosenKeyClass = e.currentTarget.getAttribute('class');
 
-        dispValue.push(numPress);
+        //! Need to figure out alternative response
+        if (dispValue.length < 15){
+            dispValue += chosenKeyId;
+        }
+        
+        switch (chosenKeyClass) {
+            case 'num':
+                tempValues += chosenKeyId;
+            
+            case 'op':
+                storedValues.push(tempValues);
+                tempValues = "";
+                tempValues += chosenKeyId;
+        }
 
 
-        //! Iterate over dispValue to remove commas
+
+        //* Display as a string
+
         display.textContent = `${dispValue}`;
 
     }
