@@ -1,3 +1,5 @@
+
+
 function calculator(){
     //*Query selectors and variables here
     const display = document.querySelector('.disp');
@@ -6,14 +8,12 @@ function calculator(){
 
     let chosenKeyId;
     let chosenKeyClass;
-
     let dispValue = "";
-
     let tempValues = "";
-
     let storedValues = [];
-
     let evaluated;
+    let num1;
+    let num2;
 
     //* Basic calc functions here
     const add = (x, y) => (x + y);
@@ -24,13 +24,26 @@ function calculator(){
 
     const divide = (x, y) => (x / y);
 
-    const operate = (num1, operator, num2) => {
-        return operator(num1, num2);
+    const operate = (stNum1, operator, stNum2) => {
+        // console.log(num1, operator, num2);
+        num1 = parseFloat(stNum1);
+        num2 = parseFloat(stNum2);
+        switch (operator){
+            case "add":
+                return add(num1, num2);
+            case "subtract":
+                return subtract(num1, num2);
+            case "multiply":
+                return multiply(num1, num2);
+            case "divide":
+                return divide(num1, num2);
+        }
     };
 
     const updateValues = (array) => {
         evaluated = operate(array.shift(), array.shift(), array.shift());
-        return array.unshift(evaluated);
+        array.unshift(evaluated);
+        return array;
     }
 
 
@@ -58,26 +71,37 @@ function calculator(){
 
         // console.log(chosenKeyClass);
 
-        //! Need to figure out alternative response
-        if (dispValue.length < 14){
-            dispValue += displaySymbol(chosenKeyId);
-            
-            switch (chosenKeyClass) {
-                case 'num':
-                tempValues += chosenKeyId;
-                break;
-                
-            case 'num zero':
-                tempValues += chosenKeyId;
-                break;
-                    
-            case 'op':
+        switch (chosenKeyId) {
+            case 'equals':
                 storedValues.push(tempValues);
-                storedValues.push(chosenKeyId)
-                tempValues = "";
+                for (let i = 0; storedValues.length > 1; i++) {
+                    updateValues(storedValues);
+                }
+                dispValue = storedValues[0];
                 break;
-            }
-        }
+            default:
+                
+                //! Need to figure out alternative response
+                if (dispValue.length < 14){
+                    dispValue += displaySymbol(chosenKeyId);
+                    
+                    switch (chosenKeyClass) {
+                        case 'num':
+                            tempValues += chosenKeyId;
+                            break;
+                            
+                            case 'num zero':
+                                tempValues += chosenKeyId;
+                                break;
+                                
+                                case 'op':
+                                    storedValues.push(tempValues);
+                                    storedValues.push(chosenKeyId)
+                                    tempValues = "";
+                                    break;
+                                }
+                            }
+                        }
 
 
         //!Final operation should only display once storedValues has only one item and execute only if storedValues has three or more items
