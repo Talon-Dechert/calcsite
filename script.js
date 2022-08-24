@@ -82,29 +82,44 @@ function calculator(){
                 storedValues.shift();
                 break;
             default:
+
                 
-            //! Need to figure out alternative response
+                //! Need to figure out alternative response
             if (dispValue.length < 14){
                 dispValue += displaySymbol(chosenKeyId);
-                    
+                
                 switch (chosenKeyClass) {
                     case 'num':
-                    tempValues += chosenKeyId;
-                    break;
+                        tempValues += chosenKeyId;
+                        break;
+                        
+                        case 'num zero':
+                            tempValues += chosenKeyId;
+                            break;
                             
-                    case 'num zero':
-                    tempValues += chosenKeyId;
-                    break;
-                                
-                    case 'op':
+                            case 'op':
                     storedValues.push(tempValues);
                     storedValues.push(chosenKeyId)
                     tempValues = "";
                     break;
-                    }
                 }
             }
+        }
+        
+        /*
 
+        !BUGS
+
+        ! Account for dividing by zero
+        ! Adjust continued use of calc after equals sign is clicked
+        ! Account for equals sign being pressed early
+        ! Make sure decimals round to hundredths 
+        ! Give functionality to decimal button
+        ! Give functionality to clear button
+        ! Make sure decimal can only be used once per number
+
+        ! Change process of calculator to only have max two numbers at any one time?
+        */
 
 
         //* Display as a string
