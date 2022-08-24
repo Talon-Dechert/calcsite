@@ -37,21 +37,25 @@ function calculator(){
         // console.log(chosenKeyClass);
 
         //! Need to figure out alternative response
-        if (dispValue.length < 15){
+        if (dispValue.length < 14){
             dispValue += chosenKeyId;
-        }
-        
-        switch (chosenKeyClass) {
+            
+            switch (chosenKeyClass) {
             case 'num':
                 tempValues += chosenKeyId;
                 break;
-            
-            case 'op':
-                storedValues.push(tempValues);
-                storedValues.push(chosenKeyId)
-                tempValues = "";
-                break;
-        }
+                
+                case 'num zero':
+                    tempValues += chosenKeyId;
+                    break;
+                    
+                    case 'op':
+                        storedValues.push(tempValues);
+                        storedValues.push(chosenKeyId)
+                        tempValues = "";
+                        break;
+                    }
+                }
 
 
 
@@ -59,8 +63,8 @@ function calculator(){
 
         display.textContent = `${dispValue}`;
 
-        // console.log("Temp value is: " + tempValues);
-        // console.log("Stored values: " + storedValues);
+        console.log("Temp value is: " + tempValues);
+        console.log("Stored values: " + storedValues);
 
     }
 
