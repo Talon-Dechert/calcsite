@@ -13,6 +13,7 @@ function calculator(){
     let storedValues = [];
     let opCheck = 0;
     let decCheck = 0;
+    let errMess = 0;
 
     let tempOp = "";
     let evaluated;
@@ -71,6 +72,15 @@ function calculator(){
         chosenKeyId = e.currentTarget.getAttribute('id');
         chosenKeyClass = e.currentTarget.getAttribute('class');
 
+        if (errMess) {
+            errMess = 0;
+            tempOp += chosenKeyId;
+            document.getElementById("clear").click();
+            document.getElementById(`${tempOp}`).click();
+            tempOp = "";
+            return;
+        };
+
 
         switch (chosenKeyId) {
             case 'clear':
@@ -82,6 +92,12 @@ function calculator(){
                 break;
             case 'equals':
                 storedValues.push(tempValues);
+                if (storedValues[1] == "divide" && !parseFloat(storedValues[2])){
+                    document.getElementById("clear").click();
+                    dispValue = "ERROR"
+                    errMess = 1;
+                    break;
+                }
                 updateValues(storedValues);
                 dispValue = storedValues[0];
                 tempValues = dispValue;
@@ -114,6 +130,12 @@ function calculator(){
                         } else {
                             tempOp += chosenKeyId;
                             document.getElementById('equals').click();
+                            if (errMess) {
+                                tempOp = "";
+                                
+                                break;
+                            }
+                            
                             document.getElementById(`${tempOp}`).click();
                             tempOp = "";
                         }
