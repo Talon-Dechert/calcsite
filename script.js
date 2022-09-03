@@ -3,8 +3,9 @@
 function calculator(){
     //*Query selectors and variables here
     const display = document.querySelector('.disp');
-    const nums = document.querySelectorAll('.num');
-    const operators = document.querySelectorAll('.op');
+    const calcButtons = document.querySelectorAll("button");
+    // const nums = document.querySelectorAll('.num');
+    // const operators = document.querySelectorAll('.op');
 
     let chosenKeyId;
     let chosenKeyClass;
@@ -24,26 +25,25 @@ function calculator(){
 
     const divide = (x, y) => (x / y);
 
-    const operate = (stNum1, operator, stNum2) => {
-        // console.log(num1, operator, num2);
-        num1 = parseFloat(stNum1);
-        num2 = parseFloat(stNum2);
-        switch (operator){
-            case "add":
-                return `${add(num1, num2)}`;
-            case "subtract":
-                return `${subtract(num1, num2)}`;
-            case "multiply":
-                return `${multiply(num1, num2)}`;
-            case "divide":
-                return `${divide(num1, num2)}`;
-        }
-    };
+    // const operate = (stNum1, operator, stNum2) => {
+    //     num1 = parseFloat(stNum1);
+    //     num2 = parseFloat(stNum2);
+    //     switch (operator){
+    //         case "add":
+    //             return `${add(num1, num2)}`;
+    //         case "subtract":
+    //             return `${subtract(num1, num2)}`;
+    //         case "multiply":
+    //             return `${multiply(num1, num2)}`;
+    //         case "divide":
+    //             return `${divide(num1, num2)}`;
+    //     }
+    // };
 
-    const updateValues = (array) => {
-        evaluated = operate(array.shift(), array.shift(), array.shift());
-        array.unshift(evaluated);
-    }
+    // const updateValues = (array) => {
+    //     evaluated = operate(array.shift(), array.shift(), array.shift());
+    //     array.unshift(evaluated);
+    // }
 
 
     //* Display functions
@@ -71,16 +71,21 @@ function calculator(){
         // console.log(chosenKeyClass);
 
         switch (chosenKeyId) {
-            case 'equals':
-                storedValues.push(tempValues);
-                for (let i = storedValues.length; i > 1;) {
-                    updateValues(storedValues);
-                    if (storedValues.length == 1) break;
-                }
-                dispValue = storedValues[0];
-                tempValues = dispValue;
-                storedValues.shift();
+            case 'clear':
+                storedValues = [];
+                tempValues = "";
+                dispValue = "";
                 break;
+            case 'equals':
+                // storedValues.push(tempValues);
+                // for (let i = storedValues.length; i > 1;) {
+                //     updateValues(storedValues);
+                //     if (storedValues.length == 1) break;
+                // }
+                // dispValue = storedValues[0];
+                // tempValues = dispValue;
+                // storedValues.shift();
+                // break;
             default:
 
                 
@@ -115,8 +120,8 @@ function calculator(){
         ! Account for equals sign being pressed early
         ! Make sure decimals round to hundredths 
         ! Give functionality to decimal button
-        ! Give functionality to clear button
         ! Make sure decimal can only be used once per number
+        ! Limit decimal places in evaluated results
 
         ! Change process of calculator to only have max two numbers at any one time?
         */
@@ -132,8 +137,9 @@ function calculator(){
     }
 
 
-    nums.forEach(press => press.addEventListener('click', keyPress));
-    operators.forEach(press => press.addEventListener('click', keyPress));
+    calcButtons.forEach(press => press.addEventListener('click', keyPress));
+    // nums.forEach(press => press.addEventListener('click', keyPress));
+    // operators.forEach(press => press.addEventListener('click', keyPress));
 
 
 }
