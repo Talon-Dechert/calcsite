@@ -12,6 +12,8 @@ function calculator(){
     let dispValue = "";
     let tempValues = "0";
     let storedValues = [];
+    let opCheck = 0;
+    let decCheck = 0;
     let evaluated;
     let num1;
     let num2;
@@ -25,25 +27,25 @@ function calculator(){
 
     const divide = (x, y) => (x / y);
 
-    // const operate = (stNum1, operator, stNum2) => {
-    //     num1 = parseFloat(stNum1);
-    //     num2 = parseFloat(stNum2);
-    //     switch (operator){
-    //         case "add":
-    //             return `${add(num1, num2)}`;
-    //         case "subtract":
-    //             return `${subtract(num1, num2)}`;
-    //         case "multiply":
-    //             return `${multiply(num1, num2)}`;
-    //         case "divide":
-    //             return `${divide(num1, num2)}`;
-    //     }
-    // };
+    const operate = (stNum1, operator, stNum2) => {
+        num1 = parseFloat(stNum1);
+        num2 = parseFloat(stNum2);
+        switch (operator){
+            case "add":
+                return `${add(num1, num2)}`;
+            case "subtract":
+                return `${subtract(num1, num2)}`;
+            case "multiply":
+                return `${multiply(num1, num2)}`;
+            case "divide":
+                return `${divide(num1, num2)}`;
+        }
+    };
 
-    // const updateValues = (array) => {
-    //     evaluated = operate(array.shift(), array.shift(), array.shift());
-    //     array.unshift(evaluated);
-    // }
+    const updateValues = (array) => {
+        evaluated = operate(array.shift(), array.shift(), array.shift());
+        array.unshift(evaluated);
+    }
 
 
     //* Display functions
@@ -75,17 +77,22 @@ function calculator(){
                 storedValues = [];
                 tempValues = "";
                 dispValue = "";
+                opCheck = 0;
+                decCheck = 0;
                 break;
             case 'equals':
-                // storedValues.push(tempValues);
+                storedValues.push(tempValues);
+                updateValues(storedValues);
                 // for (let i = storedValues.length; i > 1;) {
                 //     updateValues(storedValues);
                 //     if (storedValues.length == 1) break;
                 // }
-                // dispValue = storedValues[0];
-                // tempValues = dispValue;
-                // storedValues.shift();
-                // break;
+                dispValue = storedValues[0];
+                tempValues = dispValue;
+                storedValues.shift();
+                opCheck = 0;
+                decCheck = 0;
+                break;
             default:
 
                 
@@ -98,15 +105,21 @@ function calculator(){
                         tempValues += chosenKeyId;
                         break;
                         
-                        case 'num zero':
-                            tempValues += chosenKeyId;
-                            break;
+                    case 'num zero':
+                        tempValues += chosenKeyId;
+                        break;
                             
-                            case 'op':
-                    storedValues.push(tempValues);
-                    storedValues.push(chosenKeyId)
-                    tempValues = "";
-                    break;
+                    case 'op':
+                        if (!opCheck) {
+                            storedValues.push(tempValues, chosenKeyId);
+                            tempValues = "";
+                            opCheck = 1;
+
+                        } else {
+
+                        }
+
+                        break;
                 }
             }
         }
@@ -116,14 +129,10 @@ function calculator(){
         !BUGS
 
         ! Account for dividing by zero
-        ! Adjust continued use of calc after equals sign is clicked
         ! Account for equals sign being pressed early
         ! Make sure decimals round to hundredths 
         ! Give functionality to decimal button
-        ! Make sure decimal can only be used once per number
-        ! Limit decimal places in evaluated results
 
-        ! Change process of calculator to only have max two numbers at any one time?
         */
 
 
@@ -131,8 +140,8 @@ function calculator(){
 
         display.textContent = `${dispValue}`;
 
-        console.log("Temp value is: " + tempValues);
-        console.log("Stored values: " + storedValues);
+        console.log(`Temp Values: ${tempValues}. Type: ${typeof(tempValues)}`);
+        console.log(`Stored Values: ${storedValues}. Type: ${typeof(storedValues)}`);
 
     }
 
