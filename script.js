@@ -34,13 +34,13 @@ function calculator(){
         num2 = parseFloat(stNum2);
         switch (operator){
             case "add":
-                return `${add(num1, num2)}`;
+                return (add(num1, num2)).toFixed(3);
             case "subtract":
-                return `${subtract(num1, num2)}`;
+                return (subtract(num1, num2)).toFixed(3);
             case "multiply":
-                return `${multiply(num1, num2)}`;
+                return (multiply(num1, num2)).toFixed(3);
             case "divide":
-                return `${divide(num1, num2)}`;
+                return (divide(num1, num2)).toFixed(3);
         }
     };
 
@@ -132,7 +132,7 @@ function calculator(){
                             document.getElementById('equals').click();
                             if (errMess) {
                                 tempOp = "";
-                                
+
                                 break;
                             }
                             
@@ -149,9 +149,8 @@ function calculator(){
 
         !BUGS
 
-        ! Account for dividing by zero
         ! Account for equals sign being pressed early
-        ! Make sure decimals round to hundredths 
+
         ! Give functionality to decimal button
 
         */
