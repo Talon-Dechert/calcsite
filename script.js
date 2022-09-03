@@ -4,16 +4,17 @@ function calculator(){
     //*Query selectors and variables here
     const display = document.querySelector('.disp');
     const calcButtons = document.querySelectorAll("button");
-    // const nums = document.querySelectorAll('.num');
-    // const operators = document.querySelectorAll('.op');
 
     let chosenKeyId;
     let chosenKeyClass;
+
     let dispValue = "";
     let tempValues = "0";
     let storedValues = [];
     let opCheck = 0;
     let decCheck = 0;
+
+    let tempOp = "";
     let evaluated;
     let num1;
     let num2;
@@ -70,7 +71,6 @@ function calculator(){
         chosenKeyId = e.currentTarget.getAttribute('id');
         chosenKeyClass = e.currentTarget.getAttribute('class');
 
-        // console.log(chosenKeyClass);
 
         switch (chosenKeyId) {
             case 'clear':
@@ -83,10 +83,6 @@ function calculator(){
             case 'equals':
                 storedValues.push(tempValues);
                 updateValues(storedValues);
-                // for (let i = storedValues.length; i > 1;) {
-                //     updateValues(storedValues);
-                //     if (storedValues.length == 1) break;
-                // }
                 dispValue = storedValues[0];
                 tempValues = dispValue;
                 storedValues.shift();
@@ -116,7 +112,10 @@ function calculator(){
                             opCheck = 1;
 
                         } else {
-
+                            tempOp += chosenKeyId;
+                            document.getElementById('equals').click();
+                            document.getElementById(`${tempOp}`).click();
+                            tempOp = "";
                         }
 
                         break;
@@ -147,8 +146,6 @@ function calculator(){
 
 
     calcButtons.forEach(press => press.addEventListener('click', keyPress));
-    // nums.forEach(press => press.addEventListener('click', keyPress));
-    // operators.forEach(press => press.addEventListener('click', keyPress));
 
 
 }
