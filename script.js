@@ -62,6 +62,8 @@ function calculator(){
                 return "x";
             case 'divide':
                 return "/";
+            case 'decimal':
+                return ".";
             default:
                 return keyId;
         }
@@ -120,12 +122,20 @@ function calculator(){
                     case 'num zero':
                         tempValues += chosenKeyId;
                         break;
+
+                    case 'dec':
+                        if (!decCheck){
+                            tempValues+= displaySymbol(chosenKeyId);
+                            decCheck = 1;
+                        }
+                        break;
                             
                     case 'op':
                         if (!opCheck) {
                             storedValues.push(tempValues, chosenKeyId);
                             tempValues = "";
                             opCheck = 1;
+                            decCheck = 0;
 
                         } else {
                             tempOp += chosenKeyId;
@@ -151,7 +161,9 @@ function calculator(){
 
         ! Account for equals sign being pressed early
 
-        ! Give functionality to decimal button
+        ! Prevent extra decimal after equals
+
+        ! Remove display value after equals unless op is pressed
 
         */
 
@@ -160,8 +172,8 @@ function calculator(){
 
         display.textContent = `${dispValue}`;
 
-        console.log(`Temp Values: ${tempValues}. Type: ${typeof(tempValues)}`);
-        console.log(`Stored Values: ${storedValues}. Type: ${typeof(storedValues)}`);
+        console.log(`Temp Values: ${tempValues} Type: ${typeof(tempValues)}`);
+        console.log(`Stored Values: ${storedValues} Type: ${typeof(storedValues)}`);
 
     }
 
