@@ -16,6 +16,7 @@ function calculator(){
     let errMess = 0;
 
     let tempOp = "";
+    let newAnswer = 0;
     let evaluated;
     let num1;
     let num2;
@@ -91,6 +92,7 @@ function calculator(){
                 dispValue = "";
                 opCheck = 0;
                 decCheck = 0;
+                newAnswer = 0;
                 break;
             case 'equals':
                 storedValues.push(tempValues);
@@ -106,6 +108,8 @@ function calculator(){
                 storedValues.shift();
                 opCheck = 0;
                 decCheck = 0;
+
+                newAnswer = 1;
                 break;
             default:
 
@@ -116,11 +120,24 @@ function calculator(){
                 
                 switch (chosenKeyClass) {
                     case 'num':
-                        tempValues += chosenKeyId;
+                        tempOp += chosenKeyId;
+                        if (newAnswer) {
+                            document.getElementById("clear").click();
+                            newAnswer = 0;
+                            document.getElementById(`${tempOp}`).click();
+                        } else {tempValues += chosenKeyId};
+                        tempOp ='';
                         break;
                         
                     case 'num zero':
-                        tempValues += chosenKeyId;
+                        tempOp += chosenKeyId;
+                        if (newAnswer) {
+                            document.getElementById("clear").click();
+                            newAnswer = 0;
+                            document.getElementById(`${tempOp}`).click();
+                        }
+                        tempValues += tempOp;
+                        tempOp = '';
                         break;
 
                     case 'dec':
@@ -136,6 +153,7 @@ function calculator(){
                             tempValues = "";
                             opCheck = 1;
                             decCheck = 0;
+                            newAnswer = 0;
 
                         } else {
                             tempOp += chosenKeyId;
@@ -162,8 +180,6 @@ function calculator(){
         ! Account for equals sign being pressed early
 
         ! Prevent extra decimal after equals
-
-        ! Remove display value after equals unless op is pressed
 
         */
 
