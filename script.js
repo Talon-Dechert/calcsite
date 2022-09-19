@@ -96,6 +96,10 @@ function calculator(){
                 break;
             case 'equals':
                 storedValues.push(tempValues);
+                if (storedValues[2].length < 1){
+                    storedValues.pop();
+                    break;
+                }
                 if (storedValues[1] == "divide" && !parseFloat(storedValues[2])){
                     document.getElementById("clear").click();
                     dispValue = "ERROR"
@@ -107,6 +111,7 @@ function calculator(){
                 tempValues = dispValue;
                 storedValues.shift();
                 opCheck = 0;
+                
                 decCheck = 0;
 
                 newAnswer = 1;
@@ -116,6 +121,9 @@ function calculator(){
                 
                 //! Need to figure out alternative response
             if (dispValue.length < 14){
+                if (chosenKeyClass == "dec" && decCheck) {
+                    break;
+                }
                 dispValue += displaySymbol(chosenKeyId);
                 
                 switch (chosenKeyClass) {
@@ -144,6 +152,7 @@ function calculator(){
                         if (!decCheck){
                             tempValues+= displaySymbol(chosenKeyId);
                             decCheck = 1;
+                            newAnswer = 0;
                         }
                         break;
                             
@@ -176,8 +185,6 @@ function calculator(){
         /*
 
         !BUGS
-
-        ! Account for equals sign being pressed early
 
         ! Prevent extra decimal after equals
 
